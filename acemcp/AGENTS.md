@@ -38,47 +38,34 @@
 
   <task name="Context Gathering">
     <objective>Read and analyze code for Claude's planning</objective>
+    <approach>
+      Use Augment MCP as a starting point for navigation, then apply your own judgment
+      to explore further. Augment accelerates discovery but may miss context—you are
+      responsible for complete understanding.
+    </approach>
     <procedure>
-      <step id="1">Call Augment MCP (`mcp__auggie-mcp__codebase-retrieval`) with natural language query to perform initial semantic search</step>
-      <step id="2">Review Augment results: identify gaps, missing files, incomplete call chains</step>
-      <step id="3">Supplement via `@file` reads for any code not covered by Augment</step>
-      <step id="4">Analyze structure/dependencies/logic from combined sources</step>
-      <step id="5">Identify concerns</step>
-      <step id="6">Compile report with clear separation of Augment vs manual findings</step>
+      <step id="1">Query Augment MCP (`mcp__auggie-mcp__codebase-retrieval`) to get initial info</step>
+      <step id="2">Read located files, trace imports/dependencies as you go</step>
+      <step id="3">Expand beyond Augment results when you spot gaps</step>
+      <step id="4">Analyze structure/dependencies/logic based on your complete reading</step>
+      <step id="5">Identify concerns and compile report</step>
     </procedure>
-    <augment-mcp-usage>
-      <tool>mcp__auggie-mcp__codebase-retrieval</tool>
-      <query-tips>
-        <tip>Use natural language: "Where is user authentication handled?"</tip>
-        <tip>Be specific about what you need: "Show me the GridManager class and its dependencies"</tip>
-        <tip>Ask about relationships: "How does the event bus connect to the state machine?"</tip>
-      </query-tips>
-      <limitations>
-        <item>May miss recently added code not yet indexed</item>
-        <item>Cannot trace runtime behavior or dynamic imports</item>
-        <item>Best for locating code, not for exhaustive enumeration</item>
-      </limitations>
-    </augment-mcp-usage>
     <template>
 ## Analysis Report: [Topic]
 
-### Augment MCP Results
-- Query used: `[natural language query]`
-- Files returned: [list]
-- Key snippets: [summary]
+### Discovery
+- Augment query: `[query]`
+- Starting points: [files from Augment]
+- Extended to: [additional files you found necessary]
 
-### Gap Analysis
-- Missing from Augment: [what was not covered]
-- Additional reads performed: [files read manually]
-
-### Files Examined (Combined)
-- `path/to/file.py:line_range` - description (source: Augment/Manual)
+### Files Examined
+- `path/to/file.py` - [role in the system]
 
 ### Findings
 1. [Finding with evidence]
 
 ### Code Snippets
-[Relevant code with context]
+[Key code with context]
 
 ### Concerns/Recommendations
 - [If any]
@@ -223,17 +210,12 @@
 
   <augment-mcp>
     <tool>mcp__auggie-mcp__codebase-retrieval</tool>
-    <purpose>Primary tool for codebase context gathering</purpose>
-    <when-to-use>
-      <case>ALWAYS as first step in Context Gathering tasks</case>
-      <case>When you need to locate code by semantic meaning</case>
-      <case>When exploring unfamiliar parts of the codebase</case>
-    </when-to-use>
-    <when-not-to-use>
-      <case>Exact string matching (use grep instead)</case>
-      <case>Finding ALL occurrences of an identifier</case>
-      <case>Reading a specific known file (use @file instead)</case>
-    </when-not-to-use>
+    <purpose>Accelerate code discovery—a starting point, not the whole picture</purpose>
+    <usage>
+      Query with natural language to quickly locate relevant files. Treat results as
+      navigation hints: read the files yourself, then follow your own judgment to
+      explore related code that Augment may have missed.
+    </usage>
   </augment-mcp>
 
   <api-verification>
