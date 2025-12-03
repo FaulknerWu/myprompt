@@ -195,7 +195,7 @@
      TOOL USAGE
      ============================================================ -->
 <tool-usage>
-  <available>context7, exa, fetch, deepwiki</available>
+  <available>context7, exa, fetch</available>
 
   <api-verification>
     <rule>Claude may provide Technical Reference. Query MCP if incomplete or unclear.</rule>
@@ -206,7 +206,6 @@
 
   <tool-selection>
     <rule id="technical-api">Technical/API questions: context7 first; fallback to exa if unavailable.</rule>
-    <rule id="repo-structure">Repository structure: deepwiki first; fallback to exa.</rule>
     <rule id="non-technical">Non-technical research: exa; fallback to built-in web search.</rule>
     <rule id="fetch-only">fetch: only for known URLs from other tools, never as search.</rule>
   </tool-selection>

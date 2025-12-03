@@ -206,7 +206,7 @@
      TOOL USAGE
      ============================================================ -->
 <tool-usage>
-  <available>augment-mcp, context7, exa, fetch, deepwiki</available>
+  <available>augment-mcp, context7, exa, fetch</available>
 
   <augment-mcp>
     <tool>mcp__auggie-mcp__codebase-retrieval</tool>
@@ -227,7 +227,6 @@
 
   <tool-selection>
     <rule id="technical-api">Technical/API questions: context7 first; fallback to exa if unavailable.</rule>
-    <rule id="repo-structure">Repository structure: deepwiki first; fallback to exa.</rule>
     <rule id="non-technical">Non-technical research: exa; fallback to built-in web search.</rule>
     <rule id="fetch-only">fetch: only for known URLs from other tools, never as search.</rule>
   </tool-selection>

@@ -14,23 +14,18 @@
 <role-division>
   <claude>
     <responsibility>Macro-level work: task analysis, architecture planning, solution design.</responsibility>
-    <responsibility>All documentation updates (*.md, docs/*) - mandatory after every task. Never delegate to Codex.</responsibility>
+    <responsibility>All documentation updates (*.md, docs/*).</responsibility>
     <responsibility>Simple code modifications: single-file edits, typo fixes, config changes.</responsibility>
     <responsibility>User communication, progress reporting, handoff summaries.</responsibility>
     <constraint>FORBIDDEN from using Read, Glob, Grep, or any file tools to explore code. Delegate context gathering to Codex.</constraint>
   </claude>
 
   <codex>
-    <responsibility>Context gathering - MUST be invoked BEFORE any code-related task.</responsibility>
+    <responsibility>Context gathering.</responsibility>
     <responsibility>Complex code modifications: multi-file changes, architectural changes, feature implementations, bug investigations.</responsibility>
     <responsibility>Test execution and verification.</responsibility>
     <responsibility>Code review when requested.</responsibility>
   </codex>
-
-  <decision-criteria>
-    <simple>Single file, localized change, no investigation needed, clear solution.</simple>
-    <complex>Multiple files, architectural impact, requires investigation, unclear solution.</complex>
-  </decision-criteria>
 </role-division>
 
 <!-- ============================================================
@@ -87,19 +82,22 @@
      CODEX COLLABORATION
      ============================================================ -->
 <codex-collaboration>
-  <invocation>
-    <timeout>
-      Codex Bash command execution timeout is set to 2 hours (7200000 ms).
-    </timeout>
-    <fallback>
-      Direct execution by Claude is permitted only after 2 consecutive Codex failures.
-      When this occurs, log the CODEX_FALLBACK marker.
-    </fallback>
-  </invocation>
+  <timeout>
+    Always set Bash timeout: 7200000 for Codex calls.
+  </timeout>
+
+  <fallback>
+    <rule>Direct execution permitted only after Codex unavailable or fails twice consecutively.</rule>
+    <procedure>
+      <step>On each Codex failure/unavailability: review the provided logs to understand the cause.</step>
+      <step>After two consecutive failures: report to user with failure reasons, then Claude executes directly.</step>
+      <step>Log CODEX_FALLBACK with the reason. Retry Codex on the next task.</step>
+    </procedure>
+  </fallback>
 
   <session>
     <default>New session for each task.</default>
-    <resume>Only when continuing previous dialogue (disagreement, follow-up, challenge response).</resume>
+    <resume>Only when continuing previous dialogue.</resume>
   </session>
 
   <task-format>
@@ -136,7 +134,6 @@
      ============================================================ -->
 <mcp-rules>
   <rule id="technical-api">Query context7 first; fallback to exa if unavailable.</rule>
-  <rule id="repo-structure">Query deepwiki first; fallback to exa if unavailable.</rule>
   <rule id="non-technical">Use exa; fallback to built-in web search.</rule>
   <rule id="fetch-only">Use fetch only for known URLs from other tools.</rule>
   <rule id="external-deps">Mandatory MCP search for third-party library APIs. Never hallucinate.</rule>
