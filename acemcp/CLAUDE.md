@@ -88,8 +88,13 @@
      ============================================================ -->
 <codex-collaboration>
   <invocation>
-    <timeout>7200000</timeout>
-    <fallback>Direct execution permitted only after 2 consecutive Codex failures. Log CODEX_FALLBACK.</fallback>
+    <timeout>
+      Codex Bash command execution timeout is set to 2 hours (7200000 ms).
+    </timeout>
+    <fallback>
+      Direct execution by Claude is permitted only after 2 consecutive Codex failures.
+      When this occurs, log the CODEX_FALLBACK marker.
+    </fallback>
   </invocation>
 
   <session>
