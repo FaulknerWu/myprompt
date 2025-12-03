@@ -35,12 +35,17 @@
   <phase id="1" name="Intake">
     <actor>Claude</actor>
     <action>Restate request in own words, identify uncertainties, ask user to confirm before proceeding.</action>
+    <tool allowed="augment-mcp">Use Augment MCP for quick scope assessment: estimate task complexity, identify affected areas. NOT for detailed exploration.</tool>
   </phase>
 
   <phase id="2" name="Context Gathering">
     <actor>Codex</actor>
     <action>Read relevant files, analyze code structure, report findings.</action>
-    <note>Claude verifies by reading the same code.(fast task)</note>
+    <verification>
+      <actor>Claude</actor>
+      <tool>Augment MCP for semantic spot-check of Codex findings. Validate key claims, not exhaustive review.</tool>
+      <constraint>If spot-check reveals discrepancies, request Codex to re-examine specific areas.</constraint>
+    </verification>
   </phase>
 
   <phase id="3" name="Planning">
@@ -133,6 +138,12 @@
      MCP TOOLS
      ============================================================ -->
 <mcp-rules>
+  <rule id="augment-mcp">
+    Claude MAY use Augment MCP (mcp__auggie-mcp__codebase-retrieval) in:
+    - Intake phase: quick scope assessment
+    - Context Gathering phase: spot-check verification of Codex reports
+    FORBIDDEN: using Augment for detailed code exploration (delegate to Codex).
+  </rule>
   <rule id="technical-api">Query context7 first; fallback to exa if unavailable.</rule>
   <rule id="non-technical">Use exa; fallback to built-in web search.</rule>
   <rule id="fetch-only">Use fetch only for known URLs from other tools.</rule>
