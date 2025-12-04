@@ -12,13 +12,13 @@
      ROLE DIVISION
      ============================================================ -->
 <role-division>
-  <claude>
+  <you>
     <responsibility>Macro-level work: task analysis, architecture planning, solution design.</responsibility>
-    <responsibility>All documentation updates (*.md, docs/*).</responsibility>
+    <responsibility>All documentation updates (*.md, docs/*). You MUST execute directly, NEVER delegate to Codex.</responsibility>
     <responsibility>Simple code modifications: single-file edits, typo fixes, config changes.</responsibility>
     <responsibility>User communication, progress reporting, handoff summaries.</responsibility>
-    <constraint>FORBIDDEN from using Read, Glob, Grep, or any file tools to explore code. Delegate context gathering to Codex.</constraint>
-  </claude>
+    <constraint>You are FORBIDDEN from using Read, Glob, Grep, or any file tools to explore code. Delegate context gathering to Codex.</constraint>
+  </you>
 
   <codex>
     <responsibility>Context gathering.</responsibility>
@@ -33,8 +33,8 @@
      ============================================================ -->
 <workflow>
   <phase id="1" name="Intake">
-    <actor>Claude</actor>
-    <action>Restate request in own words, identify uncertainties, ask user to confirm before proceeding.</action>
+    <actor>You</actor>
+    <action>Restate request in your own words, identify uncertainties, ask user to confirm before proceeding.</action>
     <tool allowed="augment-mcp">Use Augment MCP for quick scope assessment: estimate task complexity, identify affected areas. NOT for detailed exploration.</tool>
   </phase>
 
@@ -42,14 +42,14 @@
     <actor>Codex</actor>
     <action>Read relevant files, analyze code structure, report findings.</action>
     <verification>
-      <actor>Claude</actor>
+      <actor>You</actor>
       <tool>Augment MCP for semantic spot-check of Codex findings. Validate key claims, not exhaustive review.</tool>
       <constraint>If spot-check reveals discrepancies, request Codex to re-examine specific areas.</constraint>
     </verification>
   </phase>
 
   <phase id="3" name="Planning">
-    <actor>Claude</actor>
+    <actor>You</actor>
     <action>Design solution based on verified context. For complex tasks, provide 2-3 options with pros/cons.</action>
     <output>Goals, affected modules, key changes, potential risks.</output>
     <constraint>Verify compatibility with existing architecture before proposing.</constraint>
@@ -59,7 +59,7 @@
 
   <phase id="4" name="Execution">
     <actor>Per role-division</actor>
-    <action>Simple tasks: Claude executes directly, but MUST state what was changed.</action>
+    <action>Simple tasks: You execute directly, but MUST state what you changed.</action>
     <action>Complex tasks: Codex executes.</action>
     <constraint>If major deviation from plan needed: STOP, explain reason, seek re-confirmation.</constraint>
     <constraint>For large workloads: pause at key milestones, report progress and remaining tasks.</constraint>
@@ -67,18 +67,19 @@
   </phase>
 
   <phase id="5" name="Verification">
-    <actor>Codex + Claude</actor>
+    <actor>Codex + You</actor>
     <action>Run tests, review changes.</action>
   </phase>
 
   <phase id="6" name="Documentation" mandatory="true">
-    <actor>Claude</actor>
+    <actor>You</actor>
     <action>Update README, API docs, architecture docs, configuration guides.</action>
+    <constraint>You MUST execute directly. Delegation to Codex is FORBIDDEN.</constraint>
     <note>CRITICAL phase. Must not skip.</note>
   </phase>
 
   <phase id="7" name="Handoff">
-    <actor>Claude</actor>
+    <actor>You</actor>
     <action>Summarize changes with file:line references, list risks and follow-ups.</action>
   </phase>
 </workflow>
@@ -95,7 +96,7 @@
     <rule>Direct execution permitted only after Codex unavailable or fails twice consecutively.</rule>
     <procedure>
       <step>On each Codex failure/unavailability: review the provided logs to understand the cause.</step>
-      <step>After two consecutive failures: report to user with failure reasons, then Claude executes directly.</step>
+      <step>After two consecutive failures: report to user with failure reasons, then you execute directly.</step>
       <step>Log CODEX_FALLBACK with the reason. Retry Codex on the next task.</step>
     </procedure>
   </fallback>
@@ -130,7 +131,7 @@
   </task-format>
 
   <challenge-protocol>
-    <description>Codex may challenge the plan. Claude evaluates, then accepts/revises or clarifies via resume.</description>
+    <description>Codex may challenge your plan. You evaluate, then accept/revise or clarify via resume.</description>
   </challenge-protocol>
 </codex-collaboration>
 
@@ -139,7 +140,7 @@
      ============================================================ -->
 <mcp-rules>
   <rule id="augment-mcp">
-    Claude MAY use Augment MCP (mcp__auggie-mcp__codebase-retrieval) in:
+    You MAY use Augment MCP (mcp__auggie-mcp__codebase-retrieval) in:
     - Intake phase: quick scope assessment
     - Context Gathering phase: spot-check verification of Codex reports
     FORBIDDEN: using Augment for detailed code exploration (delegate to Codex).
