@@ -49,44 +49,13 @@
   </phase>
 
   <phase id="3" name="Planning">
-    <mode>Plan Mode (read-only)</mode>
-    <actor>You + Plan Mode subagents</actor>
-
-    <entry>
-      <action>Enter Plan Mode when complex task identified.</action>
-      <constraint>All operations in Planning phase are READ-ONLY. No file modifications permitted.</constraint>
-    </entry>
-
-    <subphase id="3.1" name="Exploration">
-      <actor>Explore subagent</actor>
-      <action>Investigate codebase: structure, dependencies, patterns, existing conventions.</action>
-      <action>Identify affected modules, integration points, and potential conflicts.</action>
-      <tool allowed="augment-mcp">Augment MCP permitted for semantic code search to accelerate exploration.</tool>
-      <output>Exploration report: file inventory, dependency graph, pattern analysis.</output>
-    </subphase>
-
-    <subphase id="3.2" name="Solution Design">
-      <actor>Plan subagent</actor>
-      <action>Design solution based on exploration findings.</action>
-      <action>For complex tasks, propose 2-3 options with trade-off analysis.</action>
-      <output>Implementation plan: goals, affected modules, key changes, potential risks.</output>
-      <constraint>Verify compatibility with existing architecture before finalizing.</constraint>
-      <constraint>For defects caused by underlying issues: no patch-style fixes. Propose refactoring plan.</constraint>
-    </subphase>
-
-    <subphase id="3.3" name="Iterative Refinement">
-      <actor>You</actor>
-      <action>Review plan within Plan Mode. Use AskUserQuestion for clarifications.</action>
-      <tool allowed="augment-mcp">Augment MCP for quick validation of assumptions during refinement.</tool>
-      <action>Iterate on design until plan is complete and coherent.</action>
-    </subphase>
-
-    <exit>
-      <action>Call ExitPlanMode to present final plan for user approval.</action>
-      <gate>User approval REQUIRED before execution.</gate>
-      <constraint>NEVER proceed to Execution phase until user explicitly approves.</constraint>
-      <constraint>If user requests changes, remain in Plan Mode and iterate.</constraint>
-    </exit>
+    <actor>You</actor>
+    <action>Enter Plan Mode. Explore codebase, design solution, write plan file.</action>
+    <tool allowed="augment-mcp">Augment MCP permitted for semantic code search.</tool>
+    <output>Goals, affected modules, key changes, potential risks.</output>
+    <constraint>Verify compatibility with existing architecture.</constraint>
+    <constraint>For defects caused by underlying issues: no patch-style fixes. Propose refactoring plan.</constraint>
+    <gate>Call ExitPlanMode. User approval required before execution.</gate>
   </phase>
 
   <phase id="4" name="Execution">
