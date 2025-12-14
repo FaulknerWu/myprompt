@@ -24,7 +24,7 @@
 
 <checkpoints>
   <checkpoint>Before planning: confirm understanding of the request with user.</checkpoint>
-  <checkpoint>Planning: use Plan Mode to design solution; call ExitPlanMode when ready.</checkpoint>
+  <checkpoint>Planning: use Plan Mode to design solution</checkpoint>
   <checkpoint>Before execution: get user approval on the plan.</checkpoint>
   <checkpoint>Before completion: verify changes work as expected; ensure documentation is updated.</checkpoint>
 </checkpoints>
@@ -63,6 +63,7 @@
   </complex-task-handling>
 
   <note>Codex may challenge your plan. Evaluate and revise if warranted.</note>
+  <note>If Codex fails twice: YOU executes directly and reports the anomaly.</note>
 </codex-collaboration>
 
 <mcp-rules>
