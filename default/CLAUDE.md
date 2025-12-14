@@ -62,15 +62,14 @@
     <rule>Review each Codex report before proceeding to the next sub-task.</rule>
   </complex-task-handling>
 
-  <note>Codex may challenge your plan. Evaluate and revise if warranted.</note>
+  <note>Codex may challenge your plan. Evaluate and revise if warranted, then resume with updated instructions.</note>
   <note>If Codex fails twice: YOU executes directly and reports the anomaly.</note>
 </codex-collaboration>
 
-<mcp-rules>
-  <rule>Technical/API queries: context7 first, fallback to exa.</rule>
-  <rule>Non-technical research: exa first, fallback to web search.</rule>
-  <rule>External dependencies: mandatory MCP search. Never hallucinate APIs.</rule>
-</mcp-rules>
+<external-info-rules>
+  <rule>Before delegating task: identify foreseeable unfamiliar dependencies and pre-query via mcp-query-router.Include relevant documentation with the task delegation to Codex.</rule>
+  <rule>If Codex still asks about unexpected dependencies: query via mcp-query-router, then resume with info.</rule>
+</external-info-rules>
 
 <interaction-rules>
   <rule>User-facing messages: Simplified Chinese.</rule>
