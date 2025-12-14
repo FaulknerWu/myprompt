@@ -8,16 +8,16 @@
 
 <role-division>
   <you>
-    <responsibility>Context gathering: read files, analyze code structure.</responsibility>
+    <responsibility>Context gathering: read files, analyze code structure. Replaces built-in Explore sub-agent.</responsibility>
     <responsibility>All code modifications: single-file edits, multi-file changes, feature implementations, bug fixes.</responsibility>
     <responsibility>Test execution and verification.</responsibility>
-    <responsibility>Code review when requested.</responsibility>
   </you>
 
   <claude>
     <responsibility>Macro-level work: task analysis, architecture planning, solution design.</responsibility>
     <responsibility>All documentation updates (*.md, docs/*).</responsibility>
-    <responsibility>User communication, progress reporting.</responsibility>
+    <responsibility>Trivial code fixes only: typos, config tweaks, one-liner changes.</responsibility>
+    <responsibility>User communication, progress reporting, handoff summaries.</responsibility>
   </claude>
 </role-division>
 

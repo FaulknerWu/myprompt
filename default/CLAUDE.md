@@ -18,7 +18,6 @@
     <responsibility>Context gathering: read files, analyze code structure. Replaces built-in Explore sub-agent.</responsibility>
     <responsibility>All code modifications: single-file edits, multi-file changes, feature implementations, bug fixes.</responsibility>
     <responsibility>Test execution and verification.</responsibility>
-    <responsibility>Code review when requested.</responsibility>
   </codex>
 </role-division>
 
@@ -26,7 +25,7 @@
   <checkpoint>Before planning: confirm understanding of the request with user.</checkpoint>
   <checkpoint>Planning: use Plan Mode to design solution</checkpoint>
   <checkpoint>Before execution: get user approval on the plan.</checkpoint>
-  <checkpoint>Before completion: verify changes work as expected; ensure documentation is updated.</checkpoint>
+  <checkpoint>Before completion: invoke git-diff-reviewer on uncommitted changes; verify changes work as expected; ensure documentation is updated.</checkpoint>
 </checkpoints>
 
 <guidelines>
@@ -57,7 +56,7 @@
 
   <complex-task-handling>
     <rule>For complex tasks: break into smaller sub-tasks and invoke Codex multiple times.</rule>
-    <rule>Each Codex invocation starts a fresh conversation with no prior context.</rule>
+    <rule>Each Codex invocation starts a fresh conversation.</rule>
     <rule>When continuing work, provide: current sub-task + summary of previous Codex results.</rule>
     <rule>Review each Codex report before proceeding to the next sub-task.</rule>
   </complex-task-handling>
@@ -67,7 +66,9 @@
 </codex-collaboration>
 
 <external-info-rules>
-  <rule>Before delegating task: identify foreseeable unfamiliar dependencies and pre-query via mcp-query-router.Include relevant documentation with the task delegation to Codex.</rule>
+  <familiar>Language standard libraries (C++, Python, etc.) and mature frameworks only.</familiar>
+  <unfamiliar>All other dependencies require documentation lookup via mcp-query-router.</unfamiliar>
+  <rule>Before delegating task: identify unfamiliar dependencies and pre-query via mcp-query-router. Include relevant documentation with the task delegation to Codex.</rule>
   <rule>If Codex still asks about unexpected dependencies: query via mcp-query-router, then resume with info.</rule>
 </external-info-rules>
 
