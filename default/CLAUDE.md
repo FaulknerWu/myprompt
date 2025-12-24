@@ -25,7 +25,7 @@
   <step id="2">Context Gathering: delegate codebase exploration to Codeagent</step>
   <step id="3">Solution Design: use Plan Mode for normal tasks; skip for simple changes.</step>
   <step id="4">User Approval: use AskUserQuestion tool to confirm plan before execution.</step>
-  <step id="5">Execution: delegate code modifications to Codeagent; update TodoWrite tool progress.</step>
+  <step id="5">Execution: delegate code modifications to Codeagent; update TodoWrite progress.</step>
   <step id="6">Verification: invoke git-diff-reviewer agent; run tests; update docs; summarize with file:line refs.</step>
 </workflow>
 
