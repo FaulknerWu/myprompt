@@ -1,9 +1,3 @@
-# Codebase Search Policy
-
-Proceed with detailed exploration.
-
----
-
 # Web Search Policy
 
 ## Documentation Lookup

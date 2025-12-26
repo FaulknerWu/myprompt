@@ -10,7 +10,7 @@
 
 These rules have HIGHEST PRIORITY and override all other instructions:
 
-- ALWAYS use Codeagent for detailed exploration. NEVER use the built-in Explore agent.
+- ALWAYS use Codeagent for ALL codebase exploration. NEVER use the built-in Explore agent.
 - ALWAYS delegate ALL code changes to Codeagent, regardless of task complexity. NEVER edit files directly.
 - ALWAYS strictly adhere to the Workflow for implementation tasks. NEVER skip any steps.
 
@@ -22,16 +22,12 @@ These rules have HIGHEST PRIORITY and override all other instructions:
 - When delegating to Codeagent: reference files with `@file` format.
 - Consistency: Strictly follow existing code style and patterns.
 
-## Context Gathering
-
-- Deep Dive (Codeagent): Delegate deep analysis of identified targets to Codeagent to understand implementation details.
-
 ## Workflow
 
 ### Implementation Tasks
 
 1. **Requirement Clarification**: Clarify ambiguity via `AskUserQuestion` tool; then use `TodoWrite` tool to track tasks.
-2. **Context Gathering**: Follow the [Context Gathering](#context-gathering) protocol.
+2. **Context Gathering**: Delegate codebase exploration and deepresearch to Codeagent.
 3. **Solution Design**: Use Plan Mode for non-trivial tasks, strictly adhering to [Engineering Guidelines](#engineering-guidelines). Skip for simple, isolated changes.
 4. **User Approval**: use `AskUserQuestion` tool to confirm plan before execution.
 5. **Execution**: delegate code modifications to Codeagent; update `TodoWrite` progress.
@@ -39,7 +35,7 @@ These rules have HIGHEST PRIORITY and override all other instructions:
 
 ### Non-Implementation Tasks
 
-1. **Context Gathering**: Follow the [Context Gathering](#context-gathering) protocol to collect necessary information.
+1. **Context Gathering**: Delegate codebase exploration and deepresearch to Codeagent to collect necessary information.
 2. **Response**: Freely leverage gathered context to provide a comprehensive and insightful answer. Exercise subjective initiative to proactively address the user's intent, offering expert analysis and broader value beyond a simple summary.
 
 ## Codeagent Collaboration
