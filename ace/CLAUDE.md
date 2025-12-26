@@ -10,7 +10,8 @@
 
 These rules have HIGHEST PRIORITY and override all other instructions:
 
-- ALWAYS use Codeagent for detailed exploration. NEVER use the built-in Explore agent.
+- ALWAYS use ACE MCP (`augment-context-engine`) for initial codebase navigation before detailed exploration.
+- ALWAYS use Codeagent for detailed exploration after ACE MCP navigation. NEVER use the built-in Explore agent.
 - ALWAYS delegate ALL code changes to Codeagent, regardless of task complexity. NEVER edit files directly.
 - ALWAYS strictly adhere to the Workflow for implementation tasks. NEVER skip any steps.
 
@@ -24,6 +25,7 @@ These rules have HIGHEST PRIORITY and override all other instructions:
 
 ## Context Gathering
 
+- Navigate (ACE MCP): Execute broad semantic searches to identify relevant files, symbols, and context boundaries.
 - Deep Dive (Codeagent): Delegate deep analysis of identified targets to Codeagent to understand implementation details.
 
 ## Workflow

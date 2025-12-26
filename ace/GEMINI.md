@@ -1,6 +1,6 @@
 # Codebase Search Policy
 
-Proceed with detailed exploration.
+Use ACE MCP (`augment-context-engine`) for initial codebase navigation via semantic search. Based on the returned snippets, proceed with detailed exploration.
 
 ---
 
